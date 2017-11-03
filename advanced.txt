@@ -1,0 +1,145 @@
+>>> def double_numbers(iterable):
+...     double_arr = []
+...     for i in iterable:
+...         double_arr.append(i + i)
+...     return double_arr
+... 
+>>> for value in double_numbers(range(1000000)):  # `test_non_generator`
+...     print value
+...     if value > 5:
+...         break
+... 
+0
+2
+4
+6
+>>> def double_numbers_generator(iterable):
+...     for i in iterable:
+...         yield i + i
+... 
+>>> for value in double_numbers_generator(xrange(1000000)):  # `test_generator`
+...     print value
+...     if value > 5:
+...         break
+... 
+0
+2
+4
+6
+>>> values = (-x for x in [1, 2, 3, 4, 5])
+>>> for x in values:
+...     print(x)
+... 
+-1
+-2
+-3
+-4
+-5
+>>> values = (-x for x in [1, 2, 3, 4, 5])
+>>> gen_to_list = list(values)
+>>> print(gen_to_list)
+[-1, -2, -3, -4, -5]
+>>> values
+<generator object <genexpr> at 0x7fd93d2faaf0>
+>>> def add_apples(func):
+...     def get_fruits():
+...         fruits = func()
+...         fruits.append('Apple')
+...         return fruits
+...     return get_fruits
+... 
+>>> @add_apples
+... def get_fruits():
+...     return ['Banana', 'Mango', 'Orange']
+... 
+>>> print ', '.join(get_fruits())
+Banana, Mango, Orange, Apple
+>>> from functools import wraps
+>>> def beg(target_function):
+...     @wraps(target_function)
+...     def wrapper(*args, **kwargs):
+...         msg, say_please = target_function(*args, **kwargs)
+...         if say_please:
+...             return "{} {}".format(msg, "Please! I am poor :(")
+...         return msg
+...     return wrapper
+... @beg
+  File "<stdin>", line 9
+    @beg
+    ^
+SyntaxError: invalid syntax
+>>> @beg
+... def say(say_please=False):
+...     msg = "Can you buy me a beer?"
+...     return msg, say_please
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'beg' is not defined
+>>> def beg(target_function):
+... ...     @wraps(target_function)
+  File "<stdin>", line 2
+    ...     @wraps(target_function)
+    ^
+IndentationError: expected an indented block
+>>> ...     def wrapper(*args, **kwargs):
+  File "<stdin>", line 1
+    ...     def wrapper(*args, **kwargs):
+    ^
+SyntaxError: invalid syntax
+>>> ...         msg, say_please = target_function(*args, **kwargs)
+  File "<stdin>", line 1
+    ...         msg, say_please = target_function(*args, **kwargs)
+    ^
+SyntaxError: invalid syntax
+>>> ...         if say_please:
+  File "<stdin>", line 1
+    ...         if say_please:
+    ^
+SyntaxError: invalid syntax
+>>> ...             return "{} {}".format(msg, "Please! I am poor :(")
+  File "<stdin>", line 1
+    ...             return "{} {}".format(msg, "Please! I am poor :(")
+    ^
+SyntaxError: invalid syntax
+>>> ...         return msg
+  File "<stdin>", line 1
+    ...         return msg
+    ^
+SyntaxError: invalid syntax
+>>> ...     return wrapper
+  File "<stdin>", line 1
+    ...     return wrapper
+    ^
+SyntaxError: invalid syntax
+>>> def beg(target_function):
+...     @wraps(target_function)
+...     def wrapper(*args, **kwargs):
+...         msg, say_please = target_function(*args, **kwargs)
+...         if say_please:
+...             return "{} {}".format(msg, "Please! I am poor :(")
+...         return msg
+... 
+>>>     return wrapper
+  File "<stdin>", line 1
+    return wrapper
+    ^
+IndentationError: unexpected indent
+>>> def beg(target_function):
+...     @wraps(target_function)
+...     def wrapper(*args, **kwargs):
+...         msg, say_please = target_function(*args, **kwargs)
+...         if say_please:
+...             return "{} {}".format(msg, "Please! I am poor :(")
+...         return msg
+...     return wrapper
+... 
+>>> @beg
+... def say(say_please=False):
+...     msg = "Can you buy me a beer?"
+...     return msg, say_please
+... 
+>>> print say()
+Can you buy me a beer?
+>>> print say(say_please=True)
+Can you buy me a beer? Please! I am poor :(
