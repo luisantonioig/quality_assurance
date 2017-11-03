@@ -1,0 +1,47 @@
+>>> class Human(object):
+...     species = "H. sapiens"
+...     def __init__(self, name):
+...         self.name = name
+...         self.age = 0
+...     def say(self, msg):
+...         return "{0}: {1}".format(self.name, msg)
+...     @classmethod
+...     def get_species(cls):
+...         return cls.species
+...     @staticmethod
+...     def grunt():
+...         return "*grunt*"
+...     @property
+...     def age(self):
+...         return self._age
+...     @age.setter
+...     def age(self, age):
+...         self._age = age
+...     @age.deleter
+...     def age(self):
+...         del self._age
+... 
+>>> i = Human(name="Ian")
+>>> print i.say("hi")
+Ian: hi
+>>> j = Human("Joel")
+>>> print j.say("hello")
+Joel: hello
+>>> i.get_species()
+'H. sapiens'
+>>> Human.species = "H. neanderthalensis"
+>>> i.get_species()
+'H. neanderthalensis'
+>>> j.get_species()
+'H. neanderthalensis'
+>>> Human.grunt()
+'*grunt*'
+>>> i.age = 42
+>>> i.age
+42
+>>> del i.age
+>>> i.age
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 16, in age
+AttributeError: 'Human' object has no attribute '_age'
