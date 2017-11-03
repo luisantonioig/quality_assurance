@@ -1,0 +1,18 @@
+>>> import math
+>>> print math.sqrt(16)
+4.0
+>>> from math import ceil, floor
+>>> print ceil(3.7)
+4.0
+>>> print floor(3.7)
+3.0
+>>> from math import *
+>>> import math as m
+>>> math.sqrt(16) == m.sqrt(16)
+True
+>>> from math import sqrt
+>>> math.sqrt == m.sqrt == sqrt
+True
+>>> import math
+>>> dir(math)
+['__doc__', '__name__', '__package__', 'acos', 'acosh', 'asin', 'asinh', 'atan', 'atan2', 'atanh', 'ceil', 'copysign', 'cos', 'cosh', 'degrees', 'e', 'erf', 'erfc', 'exp', 'expm1', 'fabs', 'factorial', 'floor', 'fmod', 'frexp', 'fsum', 'gamma', 'hypot', 'isinf', 'isnan', 'ldexp', 'lgamma', 'log', 'log10', 'log1p', 'modf', 'pi', 'pow', 'radians', 'sin', 'sinh', 'sqrt', 'tan', 'tanh', 'trunc']
